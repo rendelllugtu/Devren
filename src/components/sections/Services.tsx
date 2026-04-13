@@ -151,7 +151,7 @@ export default function Services() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 10 }}
                   onClick={() => scroll('left')}
-                  className="absolute left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
+                  className="absolute left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-black/10 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
                   aria-label="Scroll left"
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -166,7 +166,7 @@ export default function Services() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -10 }}
                   onClick={() => scroll('right')}
-                  className="absolute right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
+                  className="absolute right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-black/10 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
                   aria-label="Scroll right"
                 >
                   <ChevronRight className="w-6 h-6" />
@@ -202,7 +202,7 @@ export default function Services() {
                className={`h-1 rounded-full transition-all duration-300 ${
                  (i * 300) < (scrollRef.current?.scrollLeft || 0) + 150 && 
                  ((i + 1) * 300) > (scrollRef.current?.scrollLeft || 0) + 150
-                 ? 'w-6 bg-indigo-500' : 'w-2 bg-slate-700'
+                 ? 'w-6 bg-indigo-500' : 'w-2 bg-slate-300 dark:bg-slate-700'
                }`} 
              />
            ))}

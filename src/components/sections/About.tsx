@@ -48,7 +48,7 @@ function StatCard({
   return (
     <div className="glass rounded-2xl p-6 border border-black/5 dark:border-white/7 card-hover text-center transition-all duration-300">
       <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center mx-auto mb-4`}>
-        <Icon className="w-6 h-6 text-indigo-600 dark:text-white" />
+        <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-300" />
       </div>
       <div className="text-gray-900 dark:text-white text-4xl font-black mb-1 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
         {count}{suffix}
@@ -206,7 +206,7 @@ export default function About() {
         {/* Core values */}
         <AnimatedSection direction="up" className="text-center mb-10">
           <Badge variant="primary" className="mb-4">Our Values</Badge>
-          <h3 className="text-3xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          <h3 className="text-3xl font-bold text-gray-900 dark:text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
             How we operate
           </h3>
         </AnimatedSection>

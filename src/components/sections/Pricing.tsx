@@ -153,7 +153,7 @@ export default function Pricing() {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="mb-3">
-                    <div className="text-[10px] uppercase tracking-wider text-slate-500 mb-0.5">Setup Fee (One-time)</div>
+                    <div className="text-[10px] uppercase tracking-wider text-slate-500 dark:text-slate-500 mb-0.5">Setup Fee (One-time)</div>
                     <div className="flex items-center gap-1.5 font-black text-gray-900 dark:text-white text-2xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
                       <span className="text-indigo-600 dark:text-indigo-400 text-xl font-bold">₱</span>
                       {plan.setupPrice}
@@ -199,7 +199,7 @@ export default function Pricing() {
 
         {/* FAQ hint */}
         <AnimatedSection direction="up" delay={0.3} className="text-center mt-14">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-500 dark:text-slate-500 text-sm">
             Need a custom plan?{' '}
             <a
               href="#contact"
@@ -209,7 +209,7 @@ export default function Pricing() {
               Let's build one together →
             </a>
           </p>
-          <p className="text-slate-600 text-xs mt-2">
+          <p className="text-slate-500 dark:text-slate-600 text-xs mt-2">
             All plans include initial deployment, basic technical support, and the first month of maintenance for free. Domain registration fees are separate.
           </p>
         </AnimatedSection>

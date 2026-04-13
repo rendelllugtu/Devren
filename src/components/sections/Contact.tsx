@@ -175,10 +175,10 @@ export default function Contact() {
                     >
                       <CheckCircle className="w-10 h-10 text-emerald-400" />
                     </motion.div>
-                    <h3 className="text-2xl font-bold text-white mb-3" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3" style={{ fontFamily: 'Outfit, sans-serif' }}>
                       Message Received! 🎉
                     </h3>
-                    <p className="text-slate-400 text-sm max-w-xs mb-8">
+                    <p className="text-slate-600 dark:text-slate-400 text-sm max-w-xs mb-8">
                       Thank you for reaching out. We'll review your project details and get back to you within 24 hours.
                     </p>
                     <button
@@ -330,7 +330,7 @@ export default function Contact() {
                       )}
                     </motion.button>
 
-                    <p className="text-center text-xs text-slate-500 mt-4">
+                    <p className="text-center text-xs text-slate-500 dark:text-slate-500 mt-4">
                       No commitment required. We respond within 24 hours.
                     </p>
                   </motion.form>

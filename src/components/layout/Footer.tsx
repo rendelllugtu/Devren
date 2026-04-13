@@ -49,7 +49,7 @@ export default function Footer() {
       <div className="section-container py-16 lg:py-20">
 
         {/* Top row: brand + newsletter */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14 pb-14 border-b border-white/5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-14 pb-14 border-b border-black/8 dark:border-white/5">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -147,7 +147,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500 dark:text-slate-500">
           <p>© {new Date().getFullYear()} Devren. All rights reserved.</p>
           <div className="flex items-center gap-1">
             <span>Made with</span>

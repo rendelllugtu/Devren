@@ -171,7 +171,7 @@ export default function Hero() {
                   transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
                   className="absolute bottom-6 left-8 glass rounded-xl px-4 py-3 border border-white/10"
                 >
-                  <div className="text-xs text-slate-400 mb-1">Monthly Visitors</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Monthly Visitors</div>
                   <div className="text-xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>12,842</div>
                   <div className="text-xs text-emerald-400 flex items-center gap-1">↑ 28% this month</div>
                 </motion.div>
@@ -181,7 +181,7 @@ export default function Hero() {
                   transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 0.5 }}
                   className="absolute bottom-6 right-8 glass rounded-xl px-4 py-3 border border-white/10"
                 >
-                  <div className="text-xs text-slate-400 mb-1">Conversion Rate</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">Conversion Rate</div>
                   <div className="text-xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>4.7%</div>
                   <div className="text-xs text-emerald-400 flex items-center gap-1">↑ Top 10%</div>
                 </motion.div>
@@ -206,7 +206,7 @@ export default function Hero() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.9 + i * 0.08 }}
-                  className="text-lg font-bold text-slate-600 hover:text-slate-400 transition-colors duration-200 tracking-tight"
+                  className="text-lg font-bold text-slate-400 dark:text-slate-600 hover:text-slate-600 dark:hover:text-slate-400 transition-colors duration-200 tracking-tight"
                   style={{ fontFamily: 'Outfit, sans-serif' }}
                 >
                   {logo}

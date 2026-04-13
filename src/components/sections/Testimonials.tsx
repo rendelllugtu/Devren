@@ -108,7 +108,7 @@ function TestimonialCard({ name, role, business, rating, text, avatar, avatarCol
           <div className="text-gray-900 dark:text-white font-semibold text-sm transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
             {name}
           </div>
-          <div className="text-slate-500 text-xs">{role} · {business}</div>
+          <div className="text-slate-500 dark:text-slate-400 text-xs">{role} · {business}</div>
         </div>
       </div>
     </div>
