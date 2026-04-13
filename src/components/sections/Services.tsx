@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
-import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
+import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 
 // ── Service definitions ────────────────────────────────────────
@@ -180,7 +180,7 @@ export default function Services() {
           >
             {services.map((service, idx) => (
               <div key={service.title} className="flex-shrink-0 snap-center">
-                <AnimatedSection direction="up" delay={0.1 + idx * 0.05} distance={20}>
+                <AnimatedSection direction="up" delay={0.1 + idx * 0.05}>
                   <ServiceCard {...service} />
                 </AnimatedSection>
               </div>
