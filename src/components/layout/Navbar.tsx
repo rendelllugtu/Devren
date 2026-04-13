@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import Button from '../ui/Button';
 import ThemeToggle from '../ui/ThemeToggle';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
@@ -57,22 +57,21 @@ export default function Navbar() {
         <div className="section-container">
           <div className="flex items-center justify-between h-16 md:h-18">
 
-            {/* Logo */}
+            {/* Logo — looping brand video */}
             <a
               href="#home"
               onClick={(e) => { e.preventDefault(); scrollTo('#home'); }}
-              className="flex items-center gap-2 group"
+              className="flex items-center group"
+              aria-label="Devren — back to top"
             >
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all duration-300">
-                <Zap className="w-4 h-4 text-white" fill="white" />
-              </div>
-              <span
-                className="text-xl font-bold"
-                style={{ fontFamily: 'Outfit, sans-serif' }}
-              >
-                <span className="text-gray-900 dark:text-white transition-colors duration-300">Dev</span>
-                <span className="gradient-text">ren</span>
-              </span>
+              <video
+                src="/assets/logovid.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80"
+              />
             </a>
 
             {/* Desktop links */}
@@ -145,13 +144,14 @@ export default function Navbar() {
             {/* Drawer panel */}
             <div className="absolute right-0 top-0 bottom-0 w-72 glass-strong border-l border-white/5 p-6 flex flex-col">
               <div className="flex items-center justify-between mb-8 mt-2">
-                <span
-                  className="text-xl font-bold"
-                  style={{ fontFamily: 'Outfit, sans-serif' }}
-                >
-                  <span className="text-gray-900 dark:text-white transition-colors duration-300">Dev</span>
-                  <span className="gradient-text">ren</span>
-                </span>
+                <video
+                  src="/assets/logovid.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="h-8 w-auto object-contain"
+                />
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
                   <button onClick={() => setIsOpen(false)} className="p-2 rounded-lg hover:bg-white/5 text-slate-300 transition-colors">

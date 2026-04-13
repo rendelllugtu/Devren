@@ -1,7 +1,55 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle, Star } from 'lucide-react';
 import Button from '../ui/Button';
 import { useParallax } from '../../hooks/useParallax';
+
+// ── Typewriter hook ────────────────────────────────────────────
+const LINE1 = 'Your Business,';
+const LINE2 = 'Online. Beautifully.';
+const TYPE_SPEED = 55;   // ms per character
+const PAUSE_MS  = 380;   // pause between lines
+
+function useTypewriter() {
+  const [line1, setLine1] = useState('');
+  const [line2, setLine2] = useState('');
+  const [phase, setPhase] = useState<'line1' | 'pause' | 'line2' | 'done'>('line1');
+  const idx = useRef(0);
+
+  useEffect(() => {
+    if (phase === 'line1') {
+      if (idx.current >= LINE1.length) {
+        idx.current = 0;
+        setTimeout(() => setPhase('pause'), 0);
+        return;
+      }
+      const t = setTimeout(() => {
+        setLine1(LINE1.slice(0, idx.current + 1));
+        idx.current++;
+      }, TYPE_SPEED);
+      return () => clearTimeout(t);
+    }
+
+    if (phase === 'pause') {
+      const t = setTimeout(() => setPhase('line2'), PAUSE_MS);
+      return () => clearTimeout(t);
+    }
+
+    if (phase === 'line2') {
+      if (idx.current >= LINE2.length) {
+        setPhase('done');
+        return;
+      }
+      const t = setTimeout(() => {
+        setLine2(LINE2.slice(0, idx.current + 1));
+        idx.current++;
+      }, TYPE_SPEED);
+      return () => clearTimeout(t);
+    }
+  }, [phase, line1, line2]);
+
+  return { line1, line2, done: phase === 'done' };
+}
 
 // ── Social proof logos (text-based, real brands feel) ─────────
 const trustLogos = [
@@ -15,6 +63,51 @@ const features = [
   'Launch in 7 days',
   'SEO optimized',
 ];
+
+// ── Typewriter headline component ──────────────────────────────
+function TypewriterHeadline() {
+  const { line1, line2, done } = useTypewriter();
+
+  return (
+    <motion.h1
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="text-center text-gray-900 dark:text-white text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-black leading-[1.05] tracking-tight mb-6 transition-colors duration-300"
+      style={{ fontFamily: 'Outfit, sans-serif', minHeight: '2.2em' }}
+    >
+      {/* Line 1 */}
+      <span>{line1}</span>
+
+      {/* Cursor — only visible while typing line 1 or in pause */}
+      {!line2 && (
+        <span
+          className="inline-block w-[3px] h-[0.85em] ml-1 align-middle rounded-sm bg-indigo-400"
+          style={{ animation: 'blink-cursor 0.75s step-end infinite' }}
+        />
+      )}
+
+      {/* Line break once line 1 is done */}
+      {line2 !== undefined && <br className="hidden sm:block" />}
+
+      {/* Line 2 — gradient */}
+      {line2 && (
+        <>
+          {' '}
+          <span className="gradient-text">{line2}</span>
+
+          {/* Cursor during line 2 typing — fades out when done */}
+          <motion.span
+            animate={{ opacity: done ? 0 : 1 }}
+            transition={{ duration: 0.6 }}
+            className="inline-block w-[3px] h-[0.85em] ml-1 align-middle rounded-sm bg-pink-400"
+            style={{ animation: done ? 'none' : 'blink-cursor 0.75s step-end infinite' }}
+          />
+        </>
+      )}
+    </motion.h1>
+  );
+}
 
 /**
  * Hero Section — full-screen, gradient orbs, animated headline,
@@ -65,18 +158,8 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-center text-gray-900 dark:text-white text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-black leading-[1.05] tracking-tight mb-6 transition-colors duration-300"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
-          >
-            Your Business,{' '}
-            <br className="hidden sm:block" />
-            <span className="gradient-text">Online. Beautifully.</span>
-          </motion.h1>
+          {/* Headline — typewriter */}
+          <TypewriterHeadline />
 
           {/* Subtext */}
           <motion.p
