@@ -1,4 +1,3 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Zap, Rocket, Building2 } from 'lucide-react';
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
