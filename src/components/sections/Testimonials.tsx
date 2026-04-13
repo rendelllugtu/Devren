@@ -1,6 +1,8 @@
 import { Star, Quote } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
+import { motion } from 'framer-motion';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Testimonial data ───────────────────────────────────────────
 const testimonials = [
@@ -121,10 +123,12 @@ export default function Testimonials() {
   const row1 = [...testimonials.slice(0, 4), ...testimonials.slice(0, 4)];
   const row2 = [...testimonials.slice(4), ...testimonials.slice(4)];
 
+  const yBg = useParallax(50, [2000, 4500]);
+
   return (
     <section id="testimonials" className="relative py-28 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(99,102,241,0.06),transparent)]" />
+      <motion.div style={{ y: yBg }} className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_50%,rgba(99,102,241,0.06),transparent)]" />
 
       <div className="relative z-10">
         {/* Section header */}

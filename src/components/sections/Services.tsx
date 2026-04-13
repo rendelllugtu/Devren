@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Service definitions ────────────────────────────────────────
 const services = [
@@ -98,6 +99,9 @@ export default function Services() {
     return () => window.removeEventListener('resize', checkScroll);
   }, []);
 
+  const yHeader = useParallax(-40, [800, 2500]);
+  const yDots = useParallax(40, [800, 2500]);
+
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const width = scrollRef.current.clientWidth;
@@ -110,28 +114,30 @@ export default function Services() {
   return (
     <section id="services" className="relative py-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, var(--color-bg) 0%, #0a0a18 50%, var(--color-bg) 100%)' }}>
       {/* Background decoration */}
-      <div className="absolute inset-0 dot-pattern opacity-30" />
+      <motion.div style={{ y: yDots }} className="absolute inset-0 dot-pattern opacity-30" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-indigo-500/50 to-transparent" />
 
       <div className="relative z-10">
         {/* Section header */}
         <div className="section-container">
-          <AnimatedSection direction="up" className="text-center mb-16">
-            <Badge variant="primary" className="mb-5">
-              <Sparkles className="w-3 h-3" />
-              What We Do
-            </Badge>
-            <h2
-              className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
-              style={{ fontFamily: 'Outfit, sans-serif' }}
-            >
-              Everything your business{' '}
-              <span className="gradient-text">needs to win</span> online
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-300">
-              We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
-            </p>
-          </AnimatedSection>
+          <motion.div style={{ y: yHeader }}>
+            <AnimatedSection direction="up" className="text-center mb-16">
+              <Badge variant="primary" className="mb-5">
+                <Sparkles className="w-3 h-3" />
+                What We Do
+              </Badge>
+              <h2
+                className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
+                style={{ fontFamily: 'Outfit, sans-serif' }}
+              >
+                Everything your business{' '}
+                <span className="gradient-text">needs to win</span> online
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-300">
+                We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
+              </p>
+            </AnimatedSection>
+          </motion.div>
         </div>
 
         {/* Improved Horizontal Scroll Container */}

@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Zod validation schema ─────────────────────────────────────
 const contactSchema = z.object({
@@ -93,11 +94,14 @@ export default function Contact() {
     reset();
   };
 
+  const yDots = useParallax(60, [3000, 6000]);
+  const yBg = useParallax(-60, [3000, 6000]);
+
   return (
     <section id="contact" className="relative py-28 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 grid-pattern opacity-40" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(99,102,241,0.07),transparent)]" />
+      <motion.div style={{ y: yDots }} className="absolute inset-0 grid-pattern opacity-40" />
+      <motion.div style={{ y: yBg }} className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_50%,rgba(99,102,241,0.07),transparent)]" />
 
       <div className="section-container relative z-10">
         {/* Section header */}

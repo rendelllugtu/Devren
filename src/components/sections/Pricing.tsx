@@ -2,6 +2,8 @@ import { Check, Zap, Rocket, Building2 } from 'lucide-react';
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
+import { motion } from 'framer-motion';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Plan definitions ───────────────────────────────────────────
 const plans = [
@@ -80,6 +82,9 @@ const plans = [
  * Pricing section — 3-tier cards with monthly/yearly billing toggle.
  */
 export default function Pricing() {
+  const yHeader = useParallax(-40, [1500, 3500]);
+  const yDots = useParallax(40, [1500, 3500]);
+
   const scrollToContact = () => {
     document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -88,24 +93,26 @@ export default function Pricing() {
     <section id="pricing" className="relative py-28 overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, var(--color-bg) 0%, #0a0a18 50%, var(--color-bg) 100%)' }} />
-      <div className="absolute inset-0 dot-pattern opacity-20" />
+      <motion.div style={{ y: yDots }} className="absolute inset-0 dot-pattern opacity-20" />
 
       <div className="section-container relative z-10">
         {/* Section header */}
-        <AnimatedSection direction="up" className="text-center mb-16">
-          <Badge variant="primary" className="mb-5">Pricing Plans</Badge>
-          <h2
-            className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
-          >
-            Invest in your{' '}
-            <span className="gradient-text">digital growth</span>
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto transition-colors duration-300">
-            Choose a plan that fits your business stage. No hidden fees, just high-quality results
-            tailored to your brand.
-          </p>
-        </AnimatedSection>
+        <motion.div style={{ y: yHeader }}>
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <Badge variant="primary" className="mb-5">Pricing Plans</Badge>
+            <h2
+              className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              Invest in your{' '}
+              <span className="gradient-text">digital growth</span>
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto transition-colors duration-300">
+              Choose a plan that fits your business stage. No hidden fees, just high-quality results
+              tailored to your brand.
+            </p>
+          </AnimatedSection>
+        </motion.div>
 
         {/* Cards */}
         <StaggerContainer

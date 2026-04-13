@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle, Star } from 'lucide-react';
 import Button from '../ui/Button';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Social proof logos (text-based, real brands feel) ─────────
 const trustLogos = [
@@ -25,15 +26,20 @@ export default function Hero() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const y1 = useParallax(120, [0, 800]);
+  const y2 = useParallax(-80, [0, 800]);
+  const y3 = useParallax(160, [0, 800]);
+  const yMockup = useParallax(-60, [0, 1000]);
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden grid-pattern"
     >
       {/* ── Background gradient orbs ── */}
-      <div className="orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
-      <div className="orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" style={{ animationDelay: '2s' }} />
-      <div className="orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" style={{ animationDelay: '4s' }} />
+      <motion.div style={{ y: y1 }} className="absolute orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
+      <motion.div style={{ y: y2 }} className="absolute orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" style={{ animationDelay: '2s' }} />
+      <motion.div style={{ y: y3 }} className="absolute orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" style={{ animationDelay: '4s' }} />
 
       {/* ── Radial vignette overlay ── */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]" />
@@ -130,6 +136,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
+            style={{ y: yMockup }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="animate-float-slow max-w-4xl mx-auto"
           >
@@ -147,34 +154,16 @@ export default function Hero() {
               </div>
 
               {/* Mock website screenshot */}
-              <div className="relative" style={{ height: '280px', background: 'linear-gradient(135deg, #0d0d1a 0%, #13132b 50%, #0d0d1a 100%)' }}>
-                {/* Mock header */}
-                <div className="flex items-center justify-between px-8 py-4 border-b border-white/5">
-                  <div className="w-20 h-3 rounded bg-indigo-500/50" />
-                  <div className="flex gap-4">
-                    {[1, 2, 3, 4].map(i => <div key={i} className="w-12 h-2 rounded bg-white/10" />)}
-                  </div>
-                  <div className="w-20 h-7 rounded-lg bg-indigo-500/60" />
-                </div>
+              <div className="relative overflow-hidden" style={{ height: '400px' }}>
+                <img 
+                  src="/assets/hero-mockup.png" 
+                  alt="Premium Website Design Mockup" 
+                  className="w-full h-full object-cover" 
+                />
+                
+                {/* Subtle overlay to make floating cards pop */}
+                <div className="absolute inset-0 bg-black/10 transition-colors duration-300 dark:bg-black/20" />
 
-                {/* Mock hero content */}
-                <div className="flex items-center justify-between px-8 pt-8">
-                  <div className="flex-1">
-                    <div className="w-48 h-5 rounded bg-white/20 mb-3" />
-                    <div className="w-64 h-8 rounded bg-gradient-to-r from-indigo-500/60 to-pink-500/60 mb-3" />
-                    <div className="w-56 h-3 rounded bg-white/10 mb-1.5" />
-                    <div className="w-44 h-3 rounded bg-white/10 mb-6" />
-                    <div className="flex gap-3">
-                      <div className="w-28 h-8 rounded-lg bg-indigo-500/70" />
-                      <div className="w-24 h-8 rounded-lg bg-white/10" />
-                    </div>
-                  </div>
-                  <div className="hidden sm:block">
-                    <div className="w-48 h-36 rounded-xl bg-gradient-to-br from-indigo-500/20 to-pink-500/20 border border-white/10 flex items-center justify-center">
-                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-400/30 to-pink-400/30 border border-white/10" />
-                    </div>
-                  </div>
-                </div>
 
                 {/* Floating stat cards on mockup */}
                 <motion.div

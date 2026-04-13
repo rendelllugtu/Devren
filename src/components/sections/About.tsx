@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Users, Globe, Star, TrendingUp, Heart, Coffee } from 'lucide-react';
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
+import { useParallax } from '../../hooks/useParallax';
 
 // ── Animated counter hook ──────────────────────────────────────
 function useCounter(target: number, duration = 2000, inView = false) {
@@ -99,6 +100,10 @@ export default function About() {
     return () => observer.disconnect();
   }, [statsRef]);
 
+  const yBack = useParallax(60, [200, 1800]);
+  const yMid = useParallax(30, [200, 1800]);
+  const yFront = useParallax(10, [200, 1800]);
+
   return (
     <section id="about" className="relative py-28 overflow-hidden">
       {/* Subtle background glow */}
@@ -159,21 +164,25 @@ export default function About() {
           <AnimatedSection direction="right" delay={0.1}>
             <div className="relative h-80 lg:h-96">
               {/* Background card */}
-              <div className="absolute inset-0 glass rounded-3xl border border-white/7 rotate-3" style={{ background: 'rgba(99,102,241,0.05)' }} />
+              <motion.div style={{ y: yBack }} className="absolute inset-0 glass rounded-3xl border border-white/7 rotate-3" style={{ background: 'rgba(99,102,241,0.05)' }} />
               {/* Middle card */}
-              <div className="absolute inset-2 glass rounded-2xl border border-white/8 -rotate-1" style={{ background: 'rgba(236,72,153,0.05)' }} />
+              <motion.div style={{ y: yMid }} className="absolute inset-2 glass rounded-2xl border border-white/8 -rotate-1" style={{ background: 'rgba(236,72,153,0.05)' }} />
               {/* Front card */}
-              <div className="absolute inset-4 glass rounded-2xl border border-black/5 dark:border-white/10 flex flex-col items-center justify-center p-8 text-center transition-all duration-300">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center mb-4 shadow-xl shadow-indigo-500/30">
-                  <Globe className="w-8 h-8 text-white" />
+              <motion.div style={{ y: yFront }} className="absolute inset-4 glass rounded-2xl border border-black/5 dark:border-white/10 overflow-hidden transition-all duration-300 group">
+                <img 
+                  src="/assets/team.png" 
+                  alt="Our professional team" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-left">
+                  <h3 className="text-xl font-bold text-white mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                    Real Partnerships
+                  </h3>
+                  <p className="text-white/80 text-xs">
+                    We work as an extension of your team.
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  Going Online,<br />Made Simple
-                </h3>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">
-                  From consultation to launch — we handle everything so you can focus on running your business.
-                </p>
-              </div>
+              </motion.div>
             </div>
           </AnimatedSection>
         </div>
