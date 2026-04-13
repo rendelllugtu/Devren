@@ -220,8 +220,9 @@ export default function Services() {
           </p>
         </AnimatedSection>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }
 
 // ── Service Card component ─────────────────────────────────────
