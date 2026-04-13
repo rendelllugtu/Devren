@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
-import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 
@@ -71,45 +72,139 @@ const services = [
  * Services section — 6-card grid with hover reveal effects, popular badge.
  */
 export default function Services() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll);
+      checkScroll();
+      return () => el.removeEventListener('scroll', checkScroll);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const width = scrollRef.current.clientWidth;
+      const multiplier = width < 768 ? 0.85 : 0.7; // Scroll more on mobile
+      const scrollAmount = direction === 'left' ? -width * multiplier : width * multiplier;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="services" className="relative py-28 overflow-hidden" style={{ background: 'linear-gradient(180deg, var(--color-bg) 0%, #0a0a18 50%, var(--color-bg) 100%)' }}>
       {/* Background decoration */}
       <div className="absolute inset-0 dot-pattern opacity-30" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-indigo-500/50 to-transparent" />
 
-      <div className="section-container relative z-10">
+      <div className="relative z-10">
         {/* Section header */}
-        <AnimatedSection direction="up" className="text-center mb-16">
-          <Badge variant="primary" className="mb-5">
-            <Sparkles className="w-3 h-3" />
-            What We Do
-          </Badge>
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
-            style={{ fontFamily: 'Outfit, sans-serif' }}
-          >
-            Everything your business{' '}
-            <span className="gradient-text">needs to win</span> online
-          </h2>
-          <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
-            We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
-          </p>
-        </AnimatedSection>
+        <div className="section-container">
+          <AnimatedSection direction="up" className="text-center mb-16">
+            <Badge variant="primary" className="mb-5">
+              <Sparkles className="w-3 h-3" />
+              What We Do
+            </Badge>
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+              style={{ fontFamily: 'Outfit, sans-serif' }}
+            >
+              Everything your business{' '}
+              <span className="gradient-text">needs to win</span> online
+            </h2>
+            <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
+              We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
+            </p>
+          </AnimatedSection>
+        </div>
 
-        {/* Service cards grid */}
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          staggerDelay={0.08}
-        >
-          {services.map((service) => (
-            <StaggerItem key={service.title}>
-              <ServiceCard {...service} />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        {/* Improved Horizontal Scroll Container */}
+        <div className="relative group/scroll">
+          {/* Scroll Navigation Buttons — Desktop only */}
+          <div className="hidden lg:block">
+            <AnimatePresence>
+              {canScrollLeft && (
+                <motion.button
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  onClick={() => scroll('left')}
+                  className="absolute left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+              {canScrollRight && (
+                <motion.button
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  onClick={() => scroll('right')}
+                  className="absolute right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white hover:bg-indigo-500/20 hover:border-indigo-500/40 transition-all duration-300"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Edge Gradients for "More Content" hint */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[var(--color-bg)] to-transparent z-20 pointer-events-none opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-500 hidden md:block" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-20 pointer-events-none opacity-0 group-hover/scroll:opacity-100 transition-opacity duration-500 hidden md:block" />
+
+          {/* Cards Container */}
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-6 px-[5%] md:px-[10%] pb-12 pt-4 hide-scrollbar snap-x scroll-smooth"
+          >
+            {services.map((service, idx) => (
+              <div key={service.title} className="flex-shrink-0 snap-center">
+                <AnimatedSection direction="up" delay={0.1 + idx * 0.05} distance={20}>
+                  <ServiceCard {...service} />
+                </AnimatedSection>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Scroll Indicator */}
+        <div className="md:hidden flex justify-center gap-1.5 mt-2 mb-8">
+           {services.map((_, i) => (
+             <div 
+               key={i} 
+               className={`h-1 rounded-full transition-all duration-300 ${
+                 (i * 300) < (scrollRef.current?.scrollLeft || 0) + 150 && 
+                 ((i + 1) * 300) > (scrollRef.current?.scrollLeft || 0) + 150
+                 ? 'w-6 bg-indigo-500' : 'w-2 bg-slate-700'
+               }`} 
+             />
+           ))}
+        </div>
 
         {/* Bottom CTA */}
-        <AnimatedSection direction="up" delay={0.2} className="text-center mt-16">
+        <div className="section-container">
+          <AnimatedSection direction="up" delay={0.2} className="text-center mt-8">
           <p className="text-slate-400 mb-5 text-sm">
             Not sure what you need?{' '}
             <a
@@ -149,6 +244,7 @@ function ServiceCard({
         hover:border-white/15 hover:shadow-2xl hover:shadow-indigo-500/10
         transition-all duration-300 cursor-pointer h-full flex flex-col
         bg-gradient-to-br ${color} bg-opacity-50
+        w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]
       `}
     >
       {/* Popular badge */}

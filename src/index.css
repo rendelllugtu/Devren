@@ -273,3 +273,20 @@ body {
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
 }
+
+/* ── Scroll Utilities ────────────────────────────────────────── */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+.snap-x {
+  scroll-snap-type: x mandatory;
+}
+
+.snap-center {
+  scroll-snap-align: center;
+}
