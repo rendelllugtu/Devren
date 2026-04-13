@@ -40,14 +40,14 @@ export default function CTA() {
 
             {/* Headline */}
             <h2
-              className="relative text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6"
+              className="relative text-4xl sm:text-5xl md:text-6xl font-black text-gray-900 dark:text-white leading-tight mb-6 transition-colors duration-300"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Ready to take your business{' '}
               <span className="gradient-text">online?</span>
             </h2>
 
-            <p className="relative text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="relative text-slate-700 dark:text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed transition-colors">
               Join 150+ businesses that chose Devren to build their online presence.
               Start today with a free consultation — no credit card required.
             </p>

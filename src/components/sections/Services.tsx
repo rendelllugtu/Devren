@@ -122,13 +122,13 @@ export default function Services() {
               What We Do
             </Badge>
             <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+              className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Everything your business{' '}
               <span className="gradient-text">needs to win</span> online
             </h2>
-            <p className="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-300">
               We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
             </p>
           </AnimatedSection>
@@ -205,7 +205,7 @@ export default function Services() {
         {/* Bottom CTA */}
         <div className="section-container">
           <AnimatedSection direction="up" delay={0.2} className="text-center mt-8">
-          <p className="text-slate-400 mb-5 text-sm">
+          <p className="text-slate-600 dark:text-slate-400 mb-5 text-sm transition-colors duration-300">
             Not sure what you need?{' '}
             <a
               href="#contact"
@@ -213,7 +213,7 @@ export default function Services() {
                 e.preventDefault();
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+              className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium transition-colors"
             >
               Let's talk for free →
             </a>
@@ -241,8 +241,8 @@ function ServiceCard({
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       className={`
-        relative group glass rounded-2xl p-7 border border-white/7
-        hover:border-white/15 hover:shadow-2xl hover:shadow-indigo-500/10
+        relative group glass rounded-2xl p-7 border border-black/5 dark:border-white/7
+        hover:border-black/10 dark:hover:border-white/15 hover:shadow-2xl hover:shadow-indigo-500/10
         transition-all duration-300 cursor-pointer h-full flex flex-col
         bg-gradient-to-br ${color} bg-opacity-50
         w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]
@@ -263,24 +263,24 @@ function ServiceCard({
       </div>
 
       {/* Content */}
-      <h3 className="text-lg font-bold text-white mb-3" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
         {title}
       </h3>
-      <p className="text-slate-400 text-sm leading-relaxed flex-1 mb-5">
+      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1 mb-5 transition-colors">
         {description}
       </p>
 
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-5">
         {tags.map((tag) => (
-          <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-slate-400 border border-white/5">
+          <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-black/5 dark:border-white/5 transition-colors">
             {tag}
           </span>
         ))}
       </div>
 
       {/* Learn more link — revealed on hover */}
-      <div className="flex items-center gap-1 text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors duration-200">
+      <div className="flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-300 transition-colors duration-200">
         Learn more
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
       </div>

@@ -45,14 +45,14 @@ function StatCard({
 }) {
   const count = useCounter(value, 2200, inView);
   return (
-    <div className="glass rounded-2xl p-6 border border-white/7 card-hover text-center">
+    <div className="glass rounded-2xl p-6 border border-black/5 dark:border-white/7 card-hover text-center transition-all duration-300">
       <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center mx-auto mb-4`}>
-        <Icon className="w-6 h-6 text-white" />
+        <Icon className="w-6 h-6 text-indigo-600 dark:text-white" />
       </div>
-      <div className="text-4xl font-black text-white mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+      <div className="text-gray-900 dark:text-white text-4xl font-black mb-1 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
         {count}{suffix}
       </div>
-      <div className="text-sm text-slate-400">{label}</div>
+      <div className="text-sm text-slate-600 dark:text-slate-400 transition-colors">{label}</div>
     </div>
   );
 }
@@ -109,7 +109,7 @@ export default function About() {
         <AnimatedSection direction="up" className="text-center mb-20">
           <Badge variant="primary" className="mb-5">Our Story</Badge>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+            className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             We believe every business{' '}
@@ -117,7 +117,7 @@ export default function About() {
             <br />
             online.
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed transition-colors duration-300">
             Devren was founded with a single mission: remove the barriers stopping small businesses
             from having a professional web presence. No bloated agencies. No confusing jargon.
             Just beautiful websites that work.
@@ -129,16 +129,16 @@ export default function About() {
           {/* Left: story text */}
           <AnimatedSection direction="left">
             <div className="space-y-6">
-              <p className="text-slate-300 leading-relaxed text-lg">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed text-lg transition-colors">
                 After years of watching talented business owners struggle with outdated websites,
                 confusing page builders, and expensive agency quotes — we decided to do it differently.
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">
                 We combine the creativity of a boutique design studio with the speed and scalability
                 of a tech company. Whether you're a local shop, a service provider, or a growing
                 startup — we have a path for you.
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">
                 Our team of designers, developers, and strategists have worked with businesses
                 across 30+ industries, and we bring that cross-sector experience to every project.
               </p>
@@ -146,8 +146,8 @@ export default function About() {
               {/* Mini feature list */}
               <div className="grid grid-cols-2 gap-3 pt-2">
                 {['Custom-built, not templated', 'Delivered in 7–14 days', '3 revision rounds included', '30-day post-launch support'].map(item => (
-                  <div key={item} className="flex items-start gap-2 text-sm text-slate-300">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 flex-shrink-0" />
+                  <div key={item} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300 transition-colors">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 mt-1.5 flex-shrink-0" />
                     {item}
                   </div>
                 ))}
@@ -163,14 +163,14 @@ export default function About() {
               {/* Middle card */}
               <div className="absolute inset-2 glass rounded-2xl border border-white/8 -rotate-1" style={{ background: 'rgba(236,72,153,0.05)' }} />
               {/* Front card */}
-              <div className="absolute inset-4 glass rounded-2xl border border-white/10 flex flex-col items-center justify-center p-8 text-center">
+              <div className="absolute inset-4 glass rounded-2xl border border-black/5 dark:border-white/10 flex flex-col items-center justify-center p-8 text-center transition-all duration-300">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center mb-4 shadow-xl shadow-indigo-500/30">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
                   Going Online,<br />Made Simple
                 </h3>
-                <p className="text-slate-400 text-sm">
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
                   From consultation to launch — we handle everything so you can focus on running your business.
                 </p>
               </div>
@@ -205,14 +205,14 @@ export default function About() {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
           {values.map(({ icon: Icon, title, description }) => (
             <StaggerItem key={title}>
-              <div className="glass rounded-2xl p-7 border border-white/7 card-hover h-full">
+              <div className="glass rounded-2xl p-7 border border-black/5 dark:border-white/7 card-hover h-full transition-all duration-300">
                 <div className="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center mb-5">
-                  <Icon className="w-6 h-6 text-indigo-400" />
+                  <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
                 </div>
-                <h4 className="text-lg font-bold text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
                   {title}
                 </h4>
-                <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">{description}</p>
               </div>
             </StaggerItem>
           ))}

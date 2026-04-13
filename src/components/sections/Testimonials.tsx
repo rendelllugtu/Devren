@@ -81,7 +81,7 @@ const testimonials = [
 // ── Single testimonial card ────────────────────────────────────
 function TestimonialCard({ name, role, business, rating, text, avatar, avatarColor }: (typeof testimonials)[0]) {
   return (
-    <div className="glass rounded-2xl p-6 border border-white/7 w-80 flex-shrink-0 mx-3 flex flex-col">
+    <div className="glass rounded-2xl p-6 border border-black/5 dark:border-white/7 w-80 flex-shrink-0 mx-3 flex flex-col transition-all duration-300">
       {/* Quote icon */}
       <Quote className="w-7 h-7 text-indigo-400/40 mb-4" />
 
@@ -93,7 +93,7 @@ function TestimonialCard({ name, role, business, rating, text, avatar, avatarCol
       </div>
 
       {/* Text */}
-      <p className="text-slate-300 text-sm leading-relaxed flex-1 mb-6 italic">
+      <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed flex-1 mb-6 italic transition-colors">
         "{text}"
       </p>
 
@@ -103,7 +103,7 @@ function TestimonialCard({ name, role, business, rating, text, avatar, avatarCol
           {avatar}
         </div>
         <div>
-          <div className="text-white font-semibold text-sm" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          <div className="text-gray-900 dark:text-white font-semibold text-sm transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
             {name}
           </div>
           <div className="text-slate-500 text-xs">{role} · {business}</div>
@@ -132,13 +132,13 @@ export default function Testimonials() {
           <AnimatedSection direction="up" className="text-center mb-16">
             <Badge variant="primary" className="mb-5">Client Stories</Badge>
             <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+              className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
               Don't take our word for it.{' '}
               <span className="gradient-text">Hear theirs.</span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto transition-colors duration-300">
               Real businesses. Real results. See what our clients say about working with Devren.
             </p>
           </AnimatedSection>
@@ -171,8 +171,8 @@ export default function Testimonials() {
               { value: '97%', label: 'Would Recommend' },
             ].map(({ value, label }) => (
               <div key={label}>
-                <div className="text-3xl font-black text-white mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>{value}</div>
-                <div className="text-slate-400 text-sm">{label}</div>
+                <div className="text-3xl font-black text-gray-900 dark:text-white mb-1 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>{value}</div>
+                <div className="text-slate-500 dark:text-slate-400 text-sm transition-colors">{label}</div>
               </div>
             ))}
           </AnimatedSection>

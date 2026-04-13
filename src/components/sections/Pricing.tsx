@@ -95,13 +95,13 @@ export default function Pricing() {
         <AnimatedSection direction="up" className="text-center mb-16">
           <Badge variant="primary" className="mb-5">Pricing Plans</Badge>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+            className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Invest in your{' '}
             <span className="gradient-text">digital growth</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto transition-colors duration-300">
             Choose a plan that fits your business stage. No hidden fees, just high-quality results
             tailored to your brand.
           </p>
@@ -118,10 +118,9 @@ export default function Pricing() {
                 className={`
                   relative rounded-2xl border p-8 h-full flex flex-col
                   transition-all duration-300
-                  bg-gradient-to-br ${plan.color}
                   ${plan.popular
                     ? 'pricing-popular border-indigo-500/40 shadow-2xl shadow-indigo-500/15'
-                    : 'glass border-white/8 hover:border-white/15'
+                    : 'glass border-black/5 dark:border-white/8 hover:border-black/10 dark:hover:border-white/15'
                   }
                 `}
               >
@@ -139,7 +138,7 @@ export default function Pricing() {
                   <div className={`w-10 h-10 rounded-xl ${plan.iconBg} border flex items-center justify-center`}>
                     <plan.icon className={`w-5 h-5 ${plan.iconColor}`} />
                   </div>
-                  <h3 className="text-xl font-bold text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     {plan.name}
                   </h3>
                 </div>
@@ -148,23 +147,23 @@ export default function Pricing() {
                 <div className="mb-6">
                   <div className="mb-3">
                     <div className="text-[10px] uppercase tracking-wider text-slate-500 mb-0.5">Setup Fee (One-time)</div>
-                    <div className="flex items-center gap-1.5 font-black text-white text-2xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                      <span className="text-indigo-400 text-xl font-bold">₱</span>
+                    <div className="flex items-center gap-1.5 font-black text-gray-900 dark:text-white text-2xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      <span className="text-indigo-600 dark:text-indigo-400 text-xl font-bold">₱</span>
                       {plan.setupPrice}
                     </div>
                   </div>
                   
                   <div>
                     <div className="text-[10px] uppercase tracking-wider text-slate-500 mb-0.5">Monthly Maintenance</div>
-                    <div className="flex items-end gap-1 font-black text-white text-2xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                      <span className="text-indigo-400 text-xl font-bold">₱</span>
+                    <div className="flex items-end gap-1 font-black text-gray-900 dark:text-white text-2xl" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      <span className="text-indigo-600 dark:text-indigo-400 text-xl font-bold">₱</span>
                       {plan.monthlyPrice}
-                      <span className="text-slate-400 text-xs font-medium mb-1.5">/mo</span>
+                      <span className="text-slate-500 dark:text-slate-400 text-xs font-medium mb-1.5">/mo</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
+                <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed">{plan.description}</p>
 
                 {/* CTA */}
                 <Button
@@ -180,8 +179,8 @@ export default function Pricing() {
                 {/* Feature list */}
                 <ul className="space-y-3 flex-1">
                   {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2.5 text-sm text-slate-300">
-                      <Check className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
+                    <li key={feat} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-slate-300">
+                      <Check className="w-4 h-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0 mt-0.5" />
                       {feat}
                     </li>
                   ))}

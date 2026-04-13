@@ -104,13 +104,13 @@ export default function Contact() {
         <AnimatedSection direction="up" className="text-center mb-16">
           <Badge variant="primary" className="mb-5">Contact Us</Badge>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6"
+            className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Let's build something{' '}
             <span className="gradient-text">great together</span>
           </h2>
-          <p className="text-slate-400 text-lg max-w-lg mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-lg mx-auto transition-colors duration-300">
             Tell us about your business and goals. We'll follow up within 24 hours with a free
             consultation.
           </p>
@@ -123,26 +123,26 @@ export default function Contact() {
           <AnimatedSection direction="left" className="lg:col-span-2 space-y-5">
             {/* Info boxes */}
             {contactInfo.map(({ icon: Icon, label, value, href }) => (
-              <a key={label} href={href} className="group flex items-start gap-4 glass rounded-xl p-5 border border-white/7 hover:border-indigo-500/25 transition-all duration-200 hover:bg-indigo-500/5 block">
+              <a key={label} href={href} className="group flex items-start gap-4 glass rounded-xl p-5 border border-black/5 dark:border-white/7 hover:border-indigo-500/25 transition-all duration-200 hover:bg-indigo-500/5 block">
                 <div className="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-500/25 transition-colors">
-                  <Icon className="w-5 h-5 text-indigo-400" />
+                  <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider mb-0.5">{label}</div>
-                  <div className="text-white font-medium text-sm">{value}</div>
+                  <div className="text-gray-900 dark:text-white font-medium text-sm transition-colors">{value}</div>
                 </div>
               </a>
             ))}
 
             {/* Trust badge */}
-            <div className="glass rounded-xl p-5 border border-white/7 mt-4">
-              <div className="flex items-start gap-3">
+            <div className="glass rounded-xl p-5 border border-black/5 dark:border-white/7 mt-4">
+              <div className="items-start flex gap-3">
                 <div className="text-2xl">🔒</div>
                 <div>
-                  <div className="text-white font-semibold text-sm mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <div className="text-gray-900 dark:text-white font-semibold text-sm mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Your info is safe with us
                   </div>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed transition-colors">
                     We never share your data. No spam, no pushy sales calls — just a helpful, honest conversation.
                   </p>
                 </div>
@@ -152,7 +152,7 @@ export default function Contact() {
 
           {/* Right: Form (3 spans) */}
           <AnimatedSection direction="right" delay={0.1} className="lg:col-span-3">
-            <div className="glass rounded-2xl border border-white/8 p-8">
+            <div className="glass rounded-2xl border border-black/5 dark:border-white/8 p-8 transition-all duration-300">
               <AnimatePresence mode="wait">
                 {submitState === 'success' ? (
                   /* Success state */
@@ -197,8 +197,8 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                       {/* Name */}
                       <div>
-                        <label htmlFor="contact-name" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Full Name <span className="text-red-400">*</span>
+                        <label htmlFor="contact-name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                          Full Name <span className="text-red-500 dark:text-red-400">*</span>
                         </label>
                         <input
                           id="contact-name"
@@ -214,8 +214,8 @@ export default function Contact() {
 
                       {/* Email */}
                       <div>
-                        <label htmlFor="contact-email" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Email Address <span className="text-red-400">*</span>
+                        <label htmlFor="contact-email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                          Email Address <span className="text-red-500 dark:text-red-400">*</span>
                         </label>
                         <input
                           id="contact-email"
@@ -232,8 +232,8 @@ export default function Contact() {
 
                     {/* Business */}
                     <div className="mb-5">
-                      <label htmlFor="contact-business" className="block text-sm font-medium text-slate-300 mb-1.5">
-                        Business Name <span className="text-red-400">*</span>
+                      <label htmlFor="contact-business" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                        Business Name <span className="text-red-500 dark:text-red-400">*</span>
                       </label>
                       <input
                         id="contact-business"
@@ -250,8 +250,8 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                       {/* Service */}
                       <div>
-                        <label htmlFor="contact-service" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Service Needed <span className="text-red-400">*</span>
+                        <label htmlFor="contact-service" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                          Service Needed <span className="text-red-500 dark:text-red-400">*</span>
                         </label>
                         <select
                           id="contact-service"
@@ -269,8 +269,8 @@ export default function Contact() {
 
                       {/* Budget */}
                       <div>
-                        <label htmlFor="contact-budget" className="block text-sm font-medium text-slate-300 mb-1.5">
-                          Budget Range <span className="text-red-400">*</span>
+                        <label htmlFor="contact-budget" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                          Budget Range <span className="text-red-500 dark:text-red-400">*</span>
                         </label>
                         <select
                           id="contact-budget"
@@ -289,8 +289,8 @@ export default function Contact() {
 
                     {/* Message */}
                     <div className="mb-7">
-                      <label htmlFor="contact-message" className="block text-sm font-medium text-slate-300 mb-1.5">
-                        Tell us about your project <span className="text-red-400">*</span>
+                      <label htmlFor="contact-message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5 transition-colors">
+                        Tell us about your project <span className="text-red-500 dark:text-red-400">*</span>
                       </label>
                       <textarea
                         id="contact-message"

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Zap } from 'lucide-react';
 import Button from '../ui/Button';
+import ThemeToggle from '../ui/ThemeToggle';
 import { useScrollProgress } from '../../hooks/useScrollProgress';
 
 // ── Navigation links ──────────────────────────────────────────────
@@ -69,7 +70,7 @@ export default function Navbar() {
                 className="text-xl font-bold"
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
-                <span className="text-white">Dev</span>
+                <span className="text-gray-900 dark:text-white transition-colors duration-300">Dev</span>
                 <span className="gradient-text">ren</span>
               </span>
             </a>
@@ -88,15 +89,8 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Desktop CTA */}
-            <div className="hidden md:flex items-center gap-3">
-              <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); scrollTo('#contact'); }}
-                className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
-              >
-                Log in
-              </a>
+            <div className="hidden md:flex items-center gap-4">
+              <ThemeToggle />
               <Button
                 variant="primary"
                 size="sm"
@@ -155,12 +149,15 @@ export default function Navbar() {
                   className="text-xl font-bold"
                   style={{ fontFamily: 'Outfit, sans-serif' }}
                 >
-                  <span className="text-white">Dev</span>
+                  <span className="text-gray-900 dark:text-white transition-colors duration-300">Dev</span>
                   <span className="gradient-text">ren</span>
                 </span>
-                <button onClick={() => setIsOpen(false)} className="p-2 rounded-lg hover:bg-white/5 text-slate-300">
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <ThemeToggle />
+                  <button onClick={() => setIsOpen(false)} className="p-2 rounded-lg hover:bg-white/5 text-slate-300 transition-colors">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               <nav className="flex flex-col gap-1 flex-1">
@@ -180,9 +177,6 @@ export default function Navbar() {
               </nav>
 
               <div className="flex flex-col gap-3 mt-8">
-                <Button variant="secondary" fullWidth onClick={() => scrollTo('#contact')}>
-                  Log in
-                </Button>
                 <Button variant="primary" fullWidth onClick={() => scrollTo('#contact')}>
                   Get Started
                 </Button>

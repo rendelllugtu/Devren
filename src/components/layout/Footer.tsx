@@ -42,7 +42,7 @@ const socials = [
  */
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/5 overflow-hidden" style={{ background: '#06060f' }}>
+    <footer className="relative border-t border-black/5 dark:border-white/5 overflow-hidden transition-colors duration-300" style={{ background: 'var(--bg-main)' }}>
       {/* Subtle gradient top */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent" />
 
@@ -56,12 +56,12 @@ export default function Footer() {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
                 <Zap className="w-4 h-4 text-white" fill="white" />
               </div>
-              <span className="text-2xl font-bold" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                <span className="text-white">Dev</span>
+              <span className="text-2xl font-bold transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                <span className="text-gray-900 dark:text-white transition-colors duration-300">Dev</span>
                 <span className="gradient-text">ren</span>
               </span>
             </div>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mb-6">
+            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-sm mb-6 transition-colors duration-300">
               We help small and medium businesses build a stunning online presence — fast, affordable, and built to convert visitors into customers.
             </p>
             <div className="flex items-center gap-3">
@@ -72,7 +72,7 @@ export default function Footer() {
                   aria-label={label}
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 flex items-center justify-center text-slate-400 hover:text-indigo-400 transition-all duration-200"
+                  className="w-9 h-9 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-indigo-500/20 border border-black/5 dark:border-white/5 hover:border-indigo-500/30 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-200"
                 >
                   <Icon />
                 </motion.a>
@@ -82,10 +82,10 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div className="lg:pl-8">
-            <h3 className="text-white font-semibold text-lg mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+            <h3 className="text-gray-900 dark:text-white font-semibold text-lg mb-2 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
               Stay in the loop
             </h3>
-            <p className="text-slate-400 text-sm mb-4">
+            <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 transition-colors">
               Get web design tips, business growth insights, and exclusive offers delivered to your inbox.
             </p>
             <div className="flex gap-2">
@@ -111,7 +111,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-14">
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-white font-semibold text-sm mb-4" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              <h4 className="text-gray-900 dark:text-white font-semibold text-sm mb-4 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 {title}
               </h4>
               <ul className="flex flex-col gap-2.5">
@@ -119,7 +119,7 @@ export default function Footer() {
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-slate-400 hover:text-white text-sm transition-colors duration-200"
+                      className="text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-white text-sm transition-colors duration-200"
                     >
                       {link}
                     </a>
@@ -131,17 +131,17 @@ export default function Footer() {
         </div>
 
         {/* Contact mini-row */}
-        <div className="flex flex-wrap gap-6 mb-10 pb-10 border-b border-white/5 text-sm text-slate-400">
-          <a href="mailto:hello@devren.co" className="flex items-center gap-2 hover:text-white transition-colors duration-200">
-            <Mail className="w-4 h-4 text-indigo-400" />
+        <div className="flex flex-wrap gap-6 mb-10 pb-10 border-b border-black/5 dark:border-white/5 text-sm text-slate-600 dark:text-slate-400 transition-colors">
+          <a href="mailto:hello@devren.co" className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-white transition-colors duration-200">
+            <Mail className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
             hello@devren.co
           </a>
-          <a href="tel:+10000000000" className="flex items-center gap-2 hover:text-white transition-colors duration-200">
-            <Phone className="w-4 h-4 text-indigo-400" />
+          <a href="tel:+10000000000" className="flex items-center gap-2 hover:text-indigo-600 dark:hover:text-white transition-colors duration-200">
+            <Phone className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
             +1 (800) DEV-REN0
           </a>
           <span className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-indigo-400" />
+            <MapPin className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
             Remote · Worldwide
           </span>
         </div>

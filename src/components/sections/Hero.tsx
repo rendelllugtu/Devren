@@ -31,12 +31,12 @@ export default function Hero() {
       className="relative min-h-screen flex items-center overflow-hidden grid-pattern"
     >
       {/* ── Background gradient orbs ── */}
-      <div className="orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32" />
-      <div className="orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16" style={{ animationDelay: '2s' }} />
-      <div className="orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" style={{ animationDelay: '4s' }} />
+      <div className="orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
+      <div className="orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" style={{ animationDelay: '2s' }} />
+      <div className="orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" style={{ animationDelay: '4s' }} />
 
       {/* ── Radial vignette overlay ── */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]" />
 
       <div className="section-container relative z-10 pt-32 pb-20 md:pt-36 md:pb-28">
         <div className="max-w-5xl mx-auto">
@@ -48,14 +48,14 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="flex justify-center mb-8"
           >
-            <div className="glass inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20">
+            <div className="glass inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 shadow-sm">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-3 h-3 star-filled" />
                 ))}
               </div>
-              <span className="text-xs font-medium text-slate-300">Trusted by 150+ businesses</span>
-              <span className="text-xs text-indigo-400 font-semibold">→ See results</span>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Trusted by 150+ businesses</span>
+              <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">→ See results</span>
             </div>
           </motion.div>
 
@@ -64,7 +64,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-black leading-[1.05] tracking-tight mb-6"
+            className="text-center text-gray-900 dark:text-white text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-black leading-[1.05] tracking-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
             Your Business,{' '}
@@ -77,7 +77,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="text-center text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-center text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed transition-colors duration-300"
           >
             We build stunning, conversion-focused websites for small and medium businesses —
             fast, affordable, and designed to turn visitors into real customers.
@@ -91,8 +91,8 @@ export default function Hero() {
             className="flex flex-wrap justify-center gap-3 mb-10"
           >
             {features.map((feat) => (
-              <div key={feat} className="flex items-center gap-1.5 text-sm text-slate-400">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <div key={feat} className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-400 transition-colors">
+                <CheckCircle className="w-4 h-4 text-emerald-500 dark:text-emerald-400" />
                 {feat}
               </div>
             ))}
