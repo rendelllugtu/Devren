@@ -38,8 +38,8 @@ export default function Hero() {
     >
       {/* ── Background gradient orbs ── */}
       <motion.div style={{ y: y1 }} className="absolute orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
-      <motion.div style={{ y: y2 }} className="absolute orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" style={{ animationDelay: '2s' }} />
-      <motion.div style={{ y: y3 }} className="absolute orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" style={{ animationDelay: '4s' }} />
+      <motion.div style={{ y: y2, animationDelay: '2s' }} className="absolute orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" />
+      <motion.div style={{ y: y3, animationDelay: '4s' }} className="absolute orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" />
 
       {/* ── Radial vignette overlay ── */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]" />

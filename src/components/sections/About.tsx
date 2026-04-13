@@ -164,9 +164,9 @@ export default function About() {
           <AnimatedSection direction="right" delay={0.1}>
             <div className="relative h-80 lg:h-96">
               {/* Background card */}
-              <motion.div style={{ y: yBack }} className="absolute inset-0 glass rounded-3xl border border-white/7 rotate-3" style={{ background: 'rgba(99,102,241,0.05)' }} />
+              <motion.div style={{ y: yBack, background: 'rgba(99,102,241,0.05)' }} className="absolute inset-0 glass rounded-3xl border border-white/7 rotate-3" />
               {/* Middle card */}
-              <motion.div style={{ y: yMid }} className="absolute inset-2 glass rounded-2xl border border-white/8 -rotate-1" style={{ background: 'rgba(236,72,153,0.05)' }} />
+              <motion.div style={{ y: yMid, background: 'rgba(236,72,153,0.05)' }} className="absolute inset-2 glass rounded-2xl border border-white/8 -rotate-1" />
               {/* Front card */}
               <motion.div style={{ y: yFront }} className="absolute inset-4 glass rounded-2xl border border-black/5 dark:border-white/10 overflow-hidden transition-all duration-300 group">
                 <img 
