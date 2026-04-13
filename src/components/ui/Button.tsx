@@ -11,7 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 /**
- * Reusable button component with hover micro-animations.
+ * Reusable button component with hover micro-animations and gradient glow shadows.
  */
 export default function Button({
   variant = 'primary',
@@ -26,7 +26,7 @@ export default function Button({
   const baseStyles = `
     inline-flex items-center justify-center gap-2.5
     font-semibold rounded-[10px] cursor-pointer
-    transition-all duration-200 select-none
+    transition-all duration-300 select-none
     ${fullWidth ? 'w-full' : ''}
   `;
 
@@ -37,26 +37,41 @@ export default function Button({
   };
 
   const variantStyles = {
+    // ── Primary: indigo gradient + expanding indigo-purple glow on hover ──
     primary: `
-      bg-gradient-to-r from-indigo-500 to-indigo-600
-      hover:from-indigo-400 hover:to-indigo-500
-      text-white shadow-lg shadow-indigo-500/25
-      hover:shadow-indigo-500/40 hover:shadow-xl
-    `,
-    secondary: `
-      bg-white/5 hover:bg-white/10
-      border border-white/10 hover:border-white/20
+      bg-gradient-to-r from-indigo-500 via-indigo-600 to-violet-600
       text-white
+      shadow-[0_4px_15px_rgba(99,102,241,0.4)]
+      hover:shadow-[0_6px_30px_rgba(99,102,241,0.7),0_2px_10px_rgba(139,92,246,0.4),0_0_0_1px_rgba(99,102,241,0.25)]
+      hover:brightness-110
+      hover:-translate-y-px
     `,
+    // ── Secondary: glass look, adapts to dark/light, indigo glow on hover ──
+    secondary: `
+      bg-black/5 dark:bg-white/5
+      border border-black/10 dark:border-white/10
+      text-slate-700 dark:text-white
+      hover:bg-indigo-500/10 dark:hover:bg-indigo-500/15
+      hover:border-indigo-500/50 dark:hover:border-indigo-400/50
+      hover:text-indigo-600 dark:hover:text-indigo-300
+      hover:shadow-[0_4px_20px_rgba(99,102,241,0.3),0_0_0_1px_rgba(99,102,241,0.15)]
+      hover:-translate-y-px
+    `,
+    // ── Ghost: minimal, theme-aware ───────────────────────────────────────
     ghost: `
-      bg-transparent hover:bg-white/5
-      text-slate-300 hover:text-white
+      bg-transparent
+      hover:bg-black/5 dark:hover:bg-white/5
+      text-slate-600 dark:text-slate-300
+      hover:text-gray-900 dark:hover:text-white
     `,
+    // ── Accent: pink-rose gradient + expanding pink glow on hover ─────────
     accent: `
-      bg-gradient-to-r from-pink-500 to-rose-500
-      hover:from-pink-400 hover:to-rose-400
-      text-white shadow-lg shadow-pink-500/25
-      hover:shadow-pink-500/40 hover:shadow-xl
+      bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400
+      text-white
+      shadow-[0_4px_15px_rgba(236,72,153,0.4)]
+      hover:shadow-[0_6px_30px_rgba(236,72,153,0.7),0_2px_10px_rgba(249,115,22,0.35),0_0_0_1px_rgba(236,72,153,0.25)]
+      hover:brightness-110
+      hover:-translate-y-px
     `,
   };
 

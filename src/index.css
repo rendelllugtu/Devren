@@ -5,6 +5,10 @@
 
 @import "tailwindcss";
 
+/* ── Dark mode: fires when html does NOT have .light class ─── */
+/* This matches ThemeToggle which adds .light for light mode   */
+@variant dark (html:not(.light) &);
+
 /* ── Theme Tokens ─────────────────────────────────────────── */
 :root {
   /* Brand Colors */
