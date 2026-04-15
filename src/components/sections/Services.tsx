@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useMotionTemplate, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useMotionTemplate, useSpring, useScroll } from 'framer-motion';
 import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
@@ -100,6 +100,20 @@ export default function Services() {
     return () => window.removeEventListener('resize', checkScroll);
   }, []);
 
+  // 3D Scroll Effect based on the section's position in the viewport
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // As it enters from bottom: rotates from -15 to 0. 
+  // In the middle: stays flat at 0.
+  // As it leaves from top: rotates from 0 to 30 and scales down.
+  const rotateXCards = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-15, 0, 0, 30]);
+  const scaleCards = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.9, 1, 1, 0.85]);
+  const opacityCards = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.3]);
+
   const yHeader = useParallax(-40, [800, 2500]);
   const yDots = useParallax(40, [800, 2500]);
 
@@ -144,7 +158,17 @@ export default function Services() {
         </div>
 
         {/* Improved Horizontal Scroll Container */}
-        <div className="relative group/scroll">
+        <motion.div 
+          ref={containerRef}
+          className="relative group/scroll"
+          style={{ 
+            rotateX: rotateXCards, 
+            scale: scaleCards, 
+            opacity: opacityCards, 
+            transformPerspective: 1800,
+            transformOrigin: 'top center'
+          }}
+        >
           {/* Scroll Navigation Buttons — Desktop only */}
           <div className="hidden lg:block">
             <AnimatePresence>
@@ -211,6 +235,7 @@ export default function Services() {
              />
            ))}
         </div>
+        </motion.div>
 
         {/* Bottom CTA */}
         <div className="section-container">

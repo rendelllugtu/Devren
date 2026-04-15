@@ -8,11 +8,22 @@ import Pricing from './components/sections/Pricing';
 import Contact from './components/sections/Contact';
 import CTA from './components/sections/CTA';
 import CustomCursor from './components/ui/CustomCursor';
+import useFluidCursor from './hooks/useFluidCursor';
+import { useEffect } from 'react';
 
 /**
  * Main App — assembles all sections in order.
  */
 function App() {
+  useEffect(() => {
+    // Initialize the fluid simulation once the canvas is mounted
+    try {
+      useFluidCursor();
+    } catch (e) {
+      console.error("Fluid cursor effect failed to initialize:", e);
+    }
+  }, []);
+
   return (
     <div
       className="min-h-screen"
@@ -22,6 +33,10 @@ function App() {
         fontFamily: 'var(--font-body)',
       }}
     >
+      <canvas 
+        id="fluid" 
+        className="fixed inset-0 w-full h-full pointer-events-none z-[9998] mix-blend-screen opacity-60" 
+      />
       <CustomCursor />
       <Navbar />
       <main>

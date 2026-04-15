@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle, Star } from 'lucide-react';
 import Button from '../ui/Button';
 import { useParallax } from '../../hooks/useParallax';
@@ -125,6 +125,12 @@ export default function Hero() {
   const y3 = useParallax(160, [0, 800]);
   const yMockup = useParallax(-60, [0, 1000]);
 
+  // 3D Scroll Effect on Hero Mockup
+  const { scrollY } = useScroll();
+  const rotateXMockup = useTransform(scrollY, [0, 800], [0, 30]);
+  const scaleMockup = useTransform(scrollY, [0, 800], [1, 0.85]);
+  const opacityMockup = useTransform(scrollY, [0, 800], [1, 0.4]);
+
   return (
     <section
       id="home"
@@ -220,7 +226,14 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            style={{ y: yMockup }}
+            style={{ 
+              y: yMockup,
+              rotateX: rotateXMockup,
+              scale: scaleMockup,
+              opacity: opacityMockup,
+              transformPerspective: 1200,
+              transformOrigin: 'bottom'
+            }}
             transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="animate-float-slow max-w-4xl mx-auto"
           >
