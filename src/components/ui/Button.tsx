@@ -1,17 +1,17 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { motion } from 'framer-motion';
+import { useRef, MouseEvent } from 'react';
+import { motion, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'accent';
   size?: 'sm' | 'md' | 'lg';
-  children: ReactNode;
-  icon?: ReactNode;
+  children: React.ReactNode;
+  icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
   fullWidth?: boolean;
 }
 
 /**
- * Reusable button component with hover micro-animations and gradient glow shadows.
+ * Reusable button component with magnetic hover effects and gradient glow shadows.
  */
 export default function Button({
   variant = 'primary',
@@ -23,6 +23,30 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
+  const ref = useRef<HTMLButtonElement>(null);
+  
+  // Magnetic springs
+  const x = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
+  const y = useSpring(0, { stiffness: 150, damping: 15, mass: 0.1 });
+
+  const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!ref.current) return;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+    
+    // Move the button up to 20% toward the cursor
+    x.set(mouseX * 0.2);
+    y.set(mouseY * 0.2);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   const baseStyles = `
     inline-flex items-center justify-center gap-2.5
     font-semibold rounded-[10px] cursor-pointer
@@ -44,7 +68,6 @@ export default function Button({
       shadow-[0_4px_15px_rgba(99,102,241,0.4)]
       hover:shadow-[0_6px_30px_rgba(99,102,241,0.7),0_2px_10px_rgba(139,92,246,0.4),0_0_0_1px_rgba(99,102,241,0.25)]
       hover:brightness-110
-      hover:-translate-y-px
     `,
     // ── Secondary: glass look, adapts to dark/light, indigo glow on hover ──
     secondary: `
@@ -55,7 +78,6 @@ export default function Button({
       hover:border-indigo-500/50 dark:hover:border-indigo-400/50
       hover:text-indigo-600 dark:hover:text-indigo-300
       hover:shadow-[0_4px_20px_rgba(99,102,241,0.3),0_0_0_1px_rgba(99,102,241,0.15)]
-      hover:-translate-y-px
     `,
     // ── Ghost: minimal, theme-aware ───────────────────────────────────────
     ghost: `
@@ -71,12 +93,15 @@ export default function Button({
       shadow-[0_4px_15px_rgba(236,72,153,0.4)]
       hover:shadow-[0_6px_30px_rgba(236,72,153,0.7),0_2px_10px_rgba(249,115,22,0.35),0_0_0_1px_rgba(236,72,153,0.25)]
       hover:brightness-110
-      hover:-translate-y-px
     `,
   };
 
   return (
     <motion.button
+      ref={ref}
+      style={{ x, y }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
       className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}

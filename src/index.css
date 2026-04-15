@@ -81,6 +81,12 @@
   box-sizing: border-box;
 }
 
+@media (pointer: fine) {
+  body, a, button, input, textarea, select {
+    cursor: none !important;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

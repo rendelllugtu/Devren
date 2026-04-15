@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle, Star } from 'lucide-react';
 import Button from '../ui/Button';
 import { useParallax } from '../../hooks/useParallax';
+import HighlightText from '../ui/HighlightText';
 
 // ── Typewriter hook ────────────────────────────────────────────
 const LINE1 = 'Your Business,';
@@ -169,7 +170,7 @@ export default function Hero() {
             className="text-center text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed transition-colors duration-300"
           >
             We build stunning, conversion-focused websites for small and medium businesses —
-            fast, affordable, and designed to turn visitors into real customers.
+            fast, affordable, and designed to <HighlightText color="rgba(99, 102, 241, 0.2)">turn visitors into real customers.</HighlightText>
           </motion.p>
 
           {/* Feature pills */}

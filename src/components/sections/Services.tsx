@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useMotionTemplate, useSpring } from 'framer-motion';
 import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
 import AnimatedSection from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
+import HighlightText from '../ui/HighlightText';
 import { useParallax } from '../../hooks/useParallax';
 
 // ── Service definitions ────────────────────────────────────────
@@ -131,7 +132,9 @@ export default function Services() {
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
                 Everything your business{' '}
-                <span className="gradient-text">needs to win</span> online
+                <HighlightText color="rgba(99, 102, 241, 0.2)">
+                  <span className="gradient-text">needs to win</span>
+                </HighlightText> online
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-300">
                 We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.
@@ -183,6 +186,7 @@ export default function Services() {
           <div 
             ref={scrollRef}
             className="flex overflow-x-auto gap-6 px-[5%] md:px-[10%] pb-12 pt-4 hide-scrollbar snap-x scroll-smooth"
+            style={{ perspective: 1500 }}
           >
             {services.map((service, idx) => (
               <div key={service.title} className="flex-shrink-0 snap-center">
@@ -242,53 +246,112 @@ function ServiceCard({
   iconBg,
   popular,
 }: (typeof services)[0]) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  
+  // Spring handles for 3D tilt
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { stiffness: 400, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { stiffness: 400, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    // Calculate mouse position relative to the center of the card (-0.5 to 0.5)
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+    setIsHovering(false);
+  };
+  
+  // Spotlight
+  const bgMouseX = useMotionValue(0);
+  const bgMouseY = useMotionValue(0);
+
+  const handleSpotlightMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    setIsHovering(true);
+    const rect = ref.current.getBoundingClientRect();
+    bgMouseX.set(e.clientX - rect.left);
+    bgMouseY.set(e.clientY - rect.top);
+    handleMouseMove(e);
+  };
+
+  const maskImage = useMotionTemplate`radial-gradient(200px circle at ${bgMouseX}px ${bgMouseY}px, black 0%, transparent 100%)`;
+
   return (
     <motion.div
+      ref={ref}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      onMouseMove={handleSpotlightMove}
+      onMouseLeave={handleMouseLeave}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       className={`
         relative group glass rounded-2xl p-7 border border-black/5 dark:border-white/7
         hover:border-black/10 dark:hover:border-white/15 hover:shadow-2xl hover:shadow-indigo-500/10
         transition-all duration-300 cursor-pointer h-full flex flex-col
-        bg-gradient-to-br ${color} bg-opacity-50
-        w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]
+        bg-opacity-50 w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px]
       `}
     >
-      {/* Popular badge */}
-      {popular && (
-        <div className="absolute -top-3 -right-3">
-          <div className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-            Most Popular
+      {/* Background Gradient */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${color} rounded-2xl -z-20 opacity-40`} />
+
+      {/* Hover Spotlight Envelope */}
+      <motion.div
+        className="absolute inset-0 z-0 pointer-events-none rounded-2xl"
+        style={{
+          background: "rgba(99, 102, 241, 0.1)",
+          maskImage,
+          WebkitMaskImage: maskImage,
+          opacity: isHovering ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      <div style={{ transform: "translateZ(30px)" }} className="relative z-10 flex flex-col h-full">
+        {/* Popular badge */}
+        {popular && (
+          <div className="absolute -top-3 -right-3">
+            <div className="bg-gradient-to-r from-indigo-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+              Most Popular
+            </div>
           </div>
+        )}
+
+        {/* Icon */}
+        <div className={`w-12 h-12 rounded-xl ${iconBg} border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
+          <Icon className={`w-6 h-6 ${iconColor}`} />
         </div>
-      )}
 
-      {/* Icon */}
-      <div className={`w-12 h-12 rounded-xl ${iconBg} border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-        <Icon className={`w-6 h-6 ${iconColor}`} />
-      </div>
+        {/* Content */}
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
+          {title}
+        </h3>
+        <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1 mb-5 transition-colors">
+          {description}
+        </p>
 
-      {/* Content */}
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>
-        {title}
-      </h3>
-      <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-1 mb-5 transition-colors">
-        {description}
-      </p>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2 mb-5">
+          {tags.map((tag) => (
+            <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-black/5 dark:border-white/5 transition-colors">
+              {tag}
+            </span>
+          ))}
+        </div>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-2 mb-5">
-        {tags.map((tag) => (
-          <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/5 text-slate-600 dark:text-slate-400 border border-black/5 dark:border-white/5 transition-colors">
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {/* Learn more link — revealed on hover */}
-      <div className="flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-300 transition-colors duration-200">
-        Learn more
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        {/* Learn more link — revealed on hover */}
+        <div className="flex items-center gap-1 text-sm font-semibold text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-300 transition-colors duration-200">
+          Learn more
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+        </div>
       </div>
     </motion.div>
   );

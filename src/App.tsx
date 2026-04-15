@@ -7,6 +7,7 @@ import Testimonials from './components/sections/Testimonials';
 import Pricing from './components/sections/Pricing';
 import Contact from './components/sections/Contact';
 import CTA from './components/sections/CTA';
+import CustomCursor from './components/ui/CustomCursor';
 
 /**
  * Main App — assembles all sections in order.
@@ -21,6 +22,7 @@ function App() {
         fontFamily: 'var(--font-body)',
       }}
     >
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
