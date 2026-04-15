@@ -220,7 +220,7 @@ export default function Services() {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Mobile Scroll Indicator */}
         <div className="md:hidden flex justify-center gap-1.5 mt-2 mb-8">
@@ -235,7 +235,6 @@ export default function Services() {
              />
            ))}
         </div>
-        </motion.div>
 
         {/* Bottom CTA */}
         <div className="section-container">
