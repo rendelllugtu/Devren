@@ -285,17 +285,18 @@ export default function Pricing() {
         </AnimatedSection>
 
         {/* Cards container config to preserve 3d context properly if needed */}
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"
-          staggerDelay={0.1}
-          style={{ perspective: 1800 }}
-        >
-          {plans.map((plan) => (
-            <StaggerItem key={plan.id}>
-              <PricingCard plan={plan} isYearly={isYearly} />
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+        <div style={{ perspective: 1800 }}>
+          <StaggerContainer
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"
+            staggerDelay={0.1}
+          >
+            {plans.map((plan) => (
+              <StaggerItem key={plan.id}>
+                <PricingCard plan={plan} isYearly={isYearly} />
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
 
         {/* FAQ hint */}
         <AnimatedSection direction="up" delay={0.3} className="text-center mt-14">

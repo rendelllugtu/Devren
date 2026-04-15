@@ -1,5 +1,6 @@
-import { useRef, MouseEvent } from 'react';
-import { motion, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
+import { useRef } from 'react';
+import type { MouseEvent } from 'react';
+import { motion, useSpring } from 'framer-motion';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'accent';
