@@ -27,14 +27,14 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'Email us',
-    value: 'hello@devren.co',
-    href: 'mailto:hello@devren.co',
+    value: 'rendelllugtu@gmail.com',
+    href: 'mailto:rendelllugtu@gmail.com',
   },
   {
     icon: Phone,
     label: 'Call us',
-    value: '+1 (800) DEV-REN0',
-    href: 'tel:+10000000000',
+    value: '+63 977 026 0402',
+    href: 'tel:+639770260402',
   },
   {
     icon: MapPin,
