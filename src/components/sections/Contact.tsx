@@ -85,13 +85,35 @@ export default function Contact() {
     resolver: zodResolver(contactSchema),
   });
 
-  // Simulate form submission (replace with actual API call)
-  const onSubmit = async (_data: ContactFormData) => {
+  // Google Sheets Script URL
+  const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxrx_g0pFgIDFTMY6Hqq5uBIubcRgRIvNChQp5_wp0aC5GUmdJEcolOqeQiJNqLyh1Aig/exec';
+
+  const onSubmit = async (data: ContactFormData) => {
     setSubmitState('loading');
-    await new Promise(resolve => setTimeout(resolve, 1800));
-    // Randomly succeed for demo (always succeed in production)
-    setSubmitState('success');
-    reset();
+    
+    try {
+      // We use 'no-cors' mode because Google Apps Script redirects can trigger CORS issues in browsers,
+      // even if the script successfully receives and processes the data.
+      await fetch(GOOGLE_SHEETS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      // Give it a small delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      setSubmitState('success');
+      reset();
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitState('error');
+      // Reset back to idle after 5 seconds if there's an error
+      setTimeout(() => setSubmitState('idle'), 5000);
+    }
   };
 
   const yDots = useParallax(60, [3000, 6000]);
@@ -307,6 +329,18 @@ export default function Contact() {
                         <FormError message={errors.message.message!} />
                       )}
                     </div>
+
+                    {/* Error Message */}
+                    {submitState === 'error' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mb-5 p-4 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center gap-3 text-red-500 text-sm"
+                      >
+                        <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                        <p>Something went wrong. Please try again or email us directly.</p>
+                      </motion.div>
+                    )}
 
                     {/* Submit */}
                     <motion.button
