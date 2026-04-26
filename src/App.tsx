@@ -8,20 +8,25 @@ import Pricing from './components/sections/Pricing';
 import Contact from './components/sections/Contact';
 import CTA from './components/sections/CTA';
 import CustomCursor from './components/ui/CustomCursor';
-import useFluidCursor from './hooks/useFluidCursor';
 import { useEffect } from 'react';
+
+// Import as a plain initializer function (not a React hook)
+import initFluidCursor from './hooks/useFluidCursor';
 
 /**
  * Main App — assembles all sections in order.
  */
 function App() {
   useEffect(() => {
-    // Initialize the fluid simulation once the canvas is mounted
-    try {
-      useFluidCursor();
-    } catch (e) {
-      console.error("Fluid cursor effect failed to initialize:", e);
-    }
+    // Small delay ensures the <canvas id="fluid"> is fully painted before WebGL init
+    const timer = setTimeout(() => {
+      try {
+        initFluidCursor();
+      } catch (e) {
+        console.error('Fluid cursor failed to initialize:', e);
+      }
+    }, 50);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -33,10 +38,12 @@ function App() {
         fontFamily: 'var(--font-body)',
       }}
     >
-      <canvas 
-        id="fluid" 
-        className="fixed inset-0 w-full h-full pointer-events-none z-[9998] mix-blend-screen opacity-60" 
+      {/* Fluid WebGL canvas — fixed, below custom cursor */}
+      <canvas
+        id="fluid"
+        className="fixed inset-0 w-full h-full pointer-events-none z-[9997] mix-blend-screen opacity-60"
       />
+      {/* Custom cursor ring — always on top */}
       <CustomCursor />
       <Navbar />
       <main>
@@ -54,3 +61,4 @@ function App() {
 }
 
 export default App;
+
