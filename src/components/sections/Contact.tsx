@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle, Loader2
 } from 'lucide-react';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection, { WordsPullUp, ScrollReveal3D, ZoomReveal } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import { useParallax } from '../../hooks/useParallax';
 
@@ -133,8 +133,8 @@ export default function Contact() {
             className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
-            Let's build something{' '}
-            <span className="gradient-text">great together</span>
+            <WordsPullUp text="Let's build something" delay={0.05} />{' '}
+            <WordsPullUp text="great together" className="gradient-text" delay={0.55} />
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-lg mx-auto transition-colors duration-300">
             Tell us about your business and goals. We'll follow up within 24 hours with a free
@@ -143,41 +143,46 @@ export default function Contact() {
         </AnimatedSection>
 
         {/* Split layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 max-w-5xl mx-auto">
+        <ScrollReveal3D className="grid grid-cols-1 lg:grid-cols-5 gap-10 max-w-5xl mx-auto">
 
           {/* Left: Info column (2 spans) */}
           <AnimatedSection direction="left" className="lg:col-span-2 space-y-5">
             {/* Info boxes */}
-            {contactInfo.map(({ icon: Icon, label, value, href }) => (
-              <a key={label} href={href} className="group flex items-start gap-4 glass rounded-xl p-5 border border-black/5 dark:border-white/7 hover:border-indigo-500/25 transition-all duration-200 hover:bg-indigo-500/5 block">
-                <div className="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-500/25 transition-colors">
-                  <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                </div>
-                <div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wider mb-0.5">{label}</div>
-                  <div className="text-gray-900 dark:text-white font-medium text-sm transition-colors">{value}</div>
-                </div>
-              </a>
+            {contactInfo.map(({ icon: Icon, label, value, href }, i) => (
+              <ZoomReveal key={label} from={0.88} delay={i * 0.07}>
+                <a href={href} className="group flex items-start gap-4 glass rounded-xl p-5 border border-black/5 dark:border-white/7 hover:border-indigo-500/25 transition-all duration-200 hover:bg-indigo-500/5 block">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-indigo-500/25 transition-colors">
+                    <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-500 uppercase tracking-wider mb-0.5">{label}</div>
+                    <div className="text-gray-900 dark:text-white font-medium text-sm transition-colors">{value}</div>
+                  </div>
+                </a>
+              </ZoomReveal>
             ))}
 
             {/* Trust badge */}
-            <div className="glass rounded-xl p-5 border border-black/5 dark:border-white/7 mt-4">
-              <div className="items-start flex gap-3">
-                <div className="text-2xl">🔒</div>
-                <div>
-                  <div className="text-gray-900 dark:text-white font-semibold text-sm mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    Your info is safe with us
+            <ZoomReveal from={0.88} delay={0.3}>
+              <div className="glass rounded-xl p-5 border border-black/5 dark:border-white/7 mt-4">
+                <div className="items-start flex gap-3">
+                  <div className="text-2xl">🔒</div>
+                  <div>
+                    <div className="text-gray-900 dark:text-white font-semibold text-sm mb-1" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                      Your info is safe with us
+                    </div>
+                    <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed transition-colors">
+                      We never share your data. No spam, no pushy sales calls — just a helpful, honest conversation.
+                    </p>
                   </div>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed transition-colors">
-                    We never share your data. No spam, no pushy sales calls — just a helpful, honest conversation.
-                  </p>
                 </div>
               </div>
-            </div>
+            </ZoomReveal>
           </AnimatedSection>
 
           {/* Right: Form (3 spans) */}
           <AnimatedSection direction="right" delay={0.1} className="lg:col-span-3">
+            <ZoomReveal from={0.9} delay={0.15}>
             <div className="glass rounded-2xl border border-black/5 dark:border-white/8 p-8 transition-all duration-300">
               <AnimatePresence mode="wait">
                 {submitState === 'success' ? (
@@ -371,8 +376,9 @@ export default function Contact() {
                 )}
               </AnimatePresence>
             </div>
+            </ZoomReveal>
           </AnimatedSection>
-        </div>
+        </ScrollReveal3D>
       </div>
     </section>
   );

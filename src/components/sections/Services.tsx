@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useMotionTemplate, useSpring, useScroll } from 'framer-motion';
 import { Globe, Search, ShoppingBag, Palette, Wrench, Share2, ArrowRight, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection, { WordsPullUp } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import HighlightText from '../ui/HighlightText';
 import { useParallax } from '../../hooks/useParallax';
@@ -145,10 +145,11 @@ export default function Services() {
                 className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
                 style={{ fontFamily: 'Outfit, sans-serif' }}
               >
-                Everything your business{' '}
+                <WordsPullUp text="Everything your business" delay={0.05} />{' '}
                 <HighlightText color="rgba(99, 102, 241, 0.2)">
-                  <span className="gradient-text">needs to win</span>
-                </HighlightText> online
+                  <WordsPullUp text="needs to win" className="gradient-text" delay={0.5} />
+                </HighlightText>{' '}
+                <WordsPullUp text="online" delay={0.9} />
               </h2>
               <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto leading-relaxed transition-colors duration-300">
                 We offer a complete digital suite — from design to development to growth — so you never have to juggle multiple vendors again.

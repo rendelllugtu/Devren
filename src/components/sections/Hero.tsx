@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle, Star } from 'lucide-react';
 import Button from '../ui/Button';
 import { useParallax } from '../../hooks/useParallax';
 import HighlightText from '../ui/HighlightText';
+import { WordsPullUp, ZoomReveal } from '../ui/AnimatedSection';
 
 // ── Typewriter hook ────────────────────────────────────────────
 const LINE1 = 'Your Business,';
@@ -110,6 +111,28 @@ function TypewriterHeadline() {
   );
 }
 
+// ── Section badge with WordsPullUp feel ────────────────────────
+function HeroBadge() {
+  return (
+    <ZoomReveal from={0.75} delay={0.1} className="flex justify-center mb-8">
+      <div className="glass inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 shadow-sm">
+        <div className="flex items-center gap-1">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="w-3 h-3 star-filled" />
+          ))}
+        </div>
+        <WordsPullUp
+          text="Trusted by 150+ businesses"
+          className="text-xs font-medium text-slate-600 dark:text-slate-300"
+          delay={0.3}
+          stagger={0.04}
+        />
+        <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">→ See results</span>
+      </div>
+    </ZoomReveal>
+  );
+}
+
 /**
  * Hero Section — full-screen, gradient orbs, animated headline,
  * social proof bar, and floating mockup card.
@@ -125,6 +148,16 @@ export default function Hero() {
   const y3 = useParallax(160, [0, 800]);
   const yMockup = useParallax(-60, [0, 1000]);
 
+  // Scroll-zoom: whole Hero section scales down as user scrolls into the page
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroScroll } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const rawHeroScale = useTransform(heroScroll, [0, 1], [1, 0.88]);
+  const rawHeroBrightness = useTransform(heroScroll, [0, 1], [1, 0.6]);
+  const heroScale = useSpring(rawHeroScale, { stiffness: 60, damping: 20 });
+
   // 3D Scroll Effect on Hero Mockup
   const { scrollY } = useScroll();
   const rotateXMockup = useTransform(scrollY, [0, 800], [0, 30]);
@@ -133,37 +166,35 @@ export default function Hero() {
 
   return (
     <section
+      ref={heroRef}
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden grid-pattern"
     >
       {/* ── Background gradient orbs ── */}
-      <motion.div style={{ y: y1 }} className="absolute orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
-      <motion.div style={{ y: y2, animationDelay: '2s' }} className="absolute orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" />
-      <motion.div style={{ y: y3, animationDelay: '4s' }} className="absolute orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" />
+      <motion.div style={{ y: y1, scale: heroScale }} className="absolute orb orb-primary animate-pulse-glow w-[600px] h-[600px] -top-32 -left-32 opacity-10 dark:opacity-15" />
+      <motion.div style={{ y: y2, animationDelay: '2s', scale: heroScale }} className="absolute orb orb-accent animate-pulse-glow w-[500px] h-[500px] -bottom-16 -right-16 opacity-10 dark:opacity-15" />
+      <motion.div style={{ y: y3, animationDelay: '4s', scale: heroScale }} className="absolute orb orb-teal animate-pulse-glow w-[400px] h-[400px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-5 dark:opacity-15" />
 
       {/* ── Radial vignette overlay ── */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.08),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),transparent)]" />
 
+      {/* ── Scroll-zoom wrapper: the whole hero content shrinks as you scroll ── */}
+      <motion.div
+        style={{
+          scale: heroScale,
+          filter: rawHeroBrightness.get() < 1
+            ? `brightness(${rawHeroBrightness.get()})`
+            : undefined,
+          transformOrigin: 'center top',
+          willChange: 'transform',
+        }}
+        className="w-full"
+      >
       <div className="section-container relative z-10 pt-32 pb-20 md:pt-36 md:pb-28">
         <div className="max-w-5xl mx-auto">
 
           {/* Announce badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex justify-center mb-8"
-          >
-            <div className="glass inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/20 shadow-sm">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 star-filled" />
-                ))}
-              </div>
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-300">Trusted by 150+ businesses</span>
-              <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">→ See results</span>
-            </div>
-          </motion.div>
+          <HeroBadge />
 
           {/* Headline — typewriter */}
           <TypewriterHeadline />
@@ -313,6 +344,7 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+      </motion.div>
     </section>
   );
 }

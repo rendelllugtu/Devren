@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Check, Zap, Rocket, Building2 } from 'lucide-react';
 import { motion, useMotionValue, useTransform, useMotionTemplate, useSpring } from 'framer-motion';
-import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
+import AnimatedSection, { StaggerContainer, StaggerItem, WordsPullUp, ScrollReveal3D, ZoomReveal } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 import { useParallax } from '../../hooks/useParallax';
@@ -249,8 +249,8 @@ export default function Pricing() {
               className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
-              Invest in your{' '}
-              <span className="gradient-text">digital growth</span>
+              <WordsPullUp text="Invest in your" delay={0.05} />{' '}
+              <WordsPullUp text="digital growth" className="gradient-text" delay={0.45} />
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto transition-colors duration-300">
               Choose a plan that fits your business stage. No hidden fees, just high-quality results
@@ -284,19 +284,23 @@ export default function Pricing() {
           </div>
         </AnimatedSection>
 
-        {/* Cards container config to preserve 3d context properly if needed */}
-        <div style={{ perspective: 1800 }}>
-          <StaggerContainer
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"
-            staggerDelay={0.1}
-          >
-            {plans.map((plan) => (
-              <StaggerItem key={plan.id}>
-                <PricingCard plan={plan} isYearly={isYearly} />
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
-        </div>
+        {/* Cards container */}
+        <ScrollReveal3D>
+          <div style={{ perspective: 1800 }}>
+            <StaggerContainer
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6"
+              staggerDelay={0.1}
+            >
+              {plans.map((plan, i) => (
+                <StaggerItem key={plan.id}>
+                  <ZoomReveal from={0.8} delay={i * 0.1}>
+                    <PricingCard plan={plan} isYearly={isYearly} />
+                  </ZoomReveal>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+        </ScrollReveal3D>
 
         {/* FAQ hint */}
         <AnimatedSection direction="up" delay={0.3} className="text-center mt-14">

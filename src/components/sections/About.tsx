@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Globe, Star, TrendingUp, Heart, Coffee } from 'lucide-react';
-import AnimatedSection, { StaggerContainer, StaggerItem } from '../ui/AnimatedSection';
+import AnimatedSection, { StaggerContainer, StaggerItem, WordsPullUp, ScrollReveal3D, ZoomReveal } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import { useParallax } from '../../hooks/useParallax';
 
@@ -117,10 +117,10 @@ export default function About() {
             className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
-            We believe every business{' '}
-            <span className="gradient-text">deserves to shine</span>
+            <WordsPullUp text="We believe every business" delay={0.05} />{' '}
+            <WordsPullUp text="deserves to shine" className="gradient-text" delay={0.45} />
             <br />
-            online.
+            <WordsPullUp text="online." delay={0.85} />
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto leading-relaxed transition-colors duration-300">
             Devren was founded with a single mission: remove the barriers stopping small businesses
@@ -130,7 +130,7 @@ export default function About() {
         </AnimatedSection>
 
         {/* 2-col: story + visual */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+        <ScrollReveal3D className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           {/* Left: story text */}
           <AnimatedSection direction="left">
             <div className="space-y-6">
@@ -185,20 +185,21 @@ export default function About() {
               </motion.div>
             </div>
           </AnimatedSection>
-        </div>
+        </ScrollReveal3D>
 
         {/* Animated stat counters */}
         <div ref={setStatsRef}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-24">
             {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                animate={statsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-              >
-                <StatCard {...stat} inView={statsInView} />
-              </motion.div>
+              <ZoomReveal key={stat.label} from={0.78} delay={i * 0.07}>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={statsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                >
+                  <StatCard {...stat} inView={statsInView} />
+                </motion.div>
+              </ZoomReveal>
             ))}
           </div>
         </div>
@@ -212,17 +213,19 @@ export default function About() {
         </AnimatedSection>
 
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6" staggerDelay={0.12}>
-          {values.map(({ icon: Icon, title, description }) => (
+          {values.map(({ icon: Icon, title, description }, i) => (
             <StaggerItem key={title}>
-              <div className="glass rounded-2xl p-7 border border-black/5 dark:border-white/7 card-hover h-full transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center mb-5">
-                  <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              <ZoomReveal from={0.85} delay={i * 0.08}>
+                <div className="glass rounded-2xl p-7 border border-black/5 dark:border-white/7 card-hover h-full transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center mb-5">
+                    <Icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                    {title}
+                  </h4>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">{description}</p>
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                  {title}
-                </h4>
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors">{description}</p>
-              </div>
+              </ZoomReveal>
             </StaggerItem>
           ))}
         </StaggerContainer>

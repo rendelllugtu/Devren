@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection, { WordsPullUp } from '../ui/AnimatedSection';
 import Button from '../ui/Button';
 import ctaBg from '../../assets/cta-bg.png';
 
@@ -81,8 +81,8 @@ export default function CTA() {
               className="relative text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight mb-6"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
-              Ready to take your business{' '}
-              <span className="gradient-text">online?</span>
+              <WordsPullUp text="Ready to take your business" delay={0.1} />{' '}
+              <WordsPullUp text="online?" className="gradient-text" delay={0.7} />
             </h2>
 
             <p className="relative text-slate-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">

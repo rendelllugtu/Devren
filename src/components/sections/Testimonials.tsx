@@ -1,5 +1,5 @@
 import { Star, Quote } from 'lucide-react';
-import AnimatedSection from '../ui/AnimatedSection';
+import AnimatedSection, { WordsPullUp, ScrollReveal3D } from '../ui/AnimatedSection';
 import Badge from '../ui/Badge';
 import { motion } from 'framer-motion';
 import { useParallax } from '../../hooks/useParallax';
@@ -139,8 +139,8 @@ export default function Testimonials() {
               className="text-gray-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 transition-colors duration-300"
               style={{ fontFamily: 'Outfit, sans-serif' }}
             >
-              Don't take our word for it.{' '}
-              <span className="gradient-text">Hear theirs.</span>
+              <WordsPullUp text="Don't take our word for it." delay={0.05} />{' '}
+              <WordsPullUp text="Hear theirs." className="gradient-text" delay={0.55} />
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto transition-colors duration-300">
               Real businesses. Real results. See what our clients say about working with Devren.
@@ -149,22 +149,24 @@ export default function Testimonials() {
         </div>
 
         {/* Row 1 — scrolls left */}
-        <div className="overflow-hidden mb-5" style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
-          <div className="marquee-track">
-            {row1.map((t, i) => (
-              <TestimonialCard key={`r1-${i}`} {...t} />
-            ))}
+        <ScrollReveal3D tilt={8}>
+          <div className="overflow-hidden mb-5" style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="marquee-track">
+              {row1.map((t, i) => (
+                <TestimonialCard key={`r1-${i}`} {...t} />
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Row 2 — scrolls right (reversed animation) */}
-        <div className="overflow-hidden" style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
-          <div className="marquee-track" style={{ animationDirection: 'reverse', animationDuration: '35s' }}>
-            {row2.map((t, i) => (
-              <TestimonialCard key={`r2-${i}`} {...t} />
-            ))}
+          {/* Row 2 — scrolls right (reversed animation) */}
+          <div className="overflow-hidden" style={{ maskImage: 'linear-gradient(90deg, transparent, black 10%, black 90%, transparent)' }}>
+            <div className="marquee-track" style={{ animationDirection: 'reverse', animationDuration: '35s' }}>
+              {row2.map((t, i) => (
+                <TestimonialCard key={`r2-${i}`} {...t} />
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal3D>
 
         {/* Bottom summary */}
         <div className="section-container mt-14">
